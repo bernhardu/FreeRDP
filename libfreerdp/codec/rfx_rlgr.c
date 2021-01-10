@@ -123,7 +123,11 @@ static INLINE UINT32 lzcnt_s(UINT32 x)
 		return n - x;
 	}
 
+#if !defined(__MINGW64_VERSION_MAJOR)
 	return __lzcnt(x);
+#else
+	return __builtin_ia32_lzcnt_u32(x);
+#endif
 }
 
 int rfx_rlgr_decode(RLGR_MODE mode, const BYTE* pSrcData, UINT32 SrcSize, INT16* pDstData,
