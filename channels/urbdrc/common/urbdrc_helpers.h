@@ -22,6 +22,9 @@
 #define FREERDP_CHANNEL_URBDRC_HELPERS_H
 
 #include <winpr/wtypes.h>
+#if defined(__MINGW64_VERSION_MAJOR)
+#undef interface
+#endif
 
 #ifdef __cplusplus
 extern "C"
