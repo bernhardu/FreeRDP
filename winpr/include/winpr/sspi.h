@@ -325,12 +325,18 @@ struct _SEC_CHANNEL_BINDINGS
 };
 typedef struct _SEC_CHANNEL_BINDINGS SEC_CHANNEL_BINDINGS;
 
+#endif
+#if !defined(_WIN32) || defined(_UWP) || defined(__MINGW64_VERSION_MAJOR)
+
 struct _SecPkgContext_Bindings
 {
 	UINT32 BindingsLength;
 	SEC_CHANNEL_BINDINGS* Bindings;
 };
 typedef struct _SecPkgContext_Bindings SecPkgContext_Bindings;
+
+#endif
+#if !defined(_WIN32) || defined(_UWP)
 
 struct _SecPkgContext_EapKeyBlock
 {
