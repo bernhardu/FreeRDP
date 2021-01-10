@@ -77,6 +77,15 @@ enum _NTLM_STATE
 };
 typedef enum _NTLM_STATE NTLM_STATE;
 
+#if defined(__MINGW64_VERSION_MAJOR)
+#define MsvAvEOL MsvAvEOL_
+#define MsvAvNbComputerName MsvAvNbComputerName_
+#define MsvAvNbDomainName MsvAvNbDomainName_
+#define MsvAvDnsComputerName MsvAvDnsComputerName_
+#define MsvAvDnsDomainName MsvAvDnsDomainName_
+#define MsvAvFlags MsvAvFlags_
+#define MsvAvDnsTreeName MsvAvDnsTreeName_
+#endif
 enum _NTLM_AV_ID
 {
 	MsvAvEOL,
@@ -92,6 +101,15 @@ enum _NTLM_AV_ID
 	MsvChannelBindings
 };
 typedef enum _NTLM_AV_ID NTLM_AV_ID;
+#if defined(__MINGW64_VERSION_MAJOR)
+#undef MsvAvEOL_
+#undef MsvAvNbComputerName_
+#undef MsvAvNbDomainName_
+#undef MsvAvDnsComputerName_
+#undef MsvAvDnsDomainName_
+#undef MsvAvFlags_
+#undef MsvAvDnsTreeName_
+#endif
 
 struct _NTLM_AV_PAIR
 {
