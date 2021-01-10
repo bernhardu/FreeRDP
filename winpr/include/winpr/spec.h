@@ -959,7 +959,9 @@ extern "C++"
 #if defined(_WIN32) || defined(__CYGWIN__)
 #ifdef __GNUC__
 #define DECLSPEC_EXPORT __attribute__((dllexport))
+#if !defined DECLSPEC_IMPORT
 #define DECLSPEC_IMPORT __attribute__((dllimport))
+#endif
 #else
 #define DECLSPEC_EXPORT __declspec(dllexport)
 #define DECLSPEC_IMPORT __declspec(dllimport)
