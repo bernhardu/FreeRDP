@@ -60,7 +60,6 @@ struct _WTSAPI_CHANNEL
 };
 typedef struct _WTSAPI_CHANNEL WTSAPI_CHANNEL;
 
-static BOOL g_Initialized = FALSE;
 static HMODULE g_WinStaModule = NULL;
 
 typedef HANDLE(WINAPI* fnWinStationVirtualOpen)(HANDLE hServer, DWORD SessionId,
@@ -307,7 +306,6 @@ BOOL WINAPI Win32_WTSVirtualChannelRead_Static(WTSAPI_CHANNEL* pChannel, DWORD d
 {
 	if (pChannel->readDone)
 	{
-		DWORD numBytesRead = 0;
 		DWORD numBytesToRead = 0;
 
 		*lpNumberOfBytesTransferred = 0;

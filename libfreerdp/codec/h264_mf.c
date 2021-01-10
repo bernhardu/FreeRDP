@@ -434,7 +434,7 @@ error:
 static int mf_compress(H264_CONTEXT* h264, const BYTE** ppSrcYuv, const UINT32* pStride,
                        BYTE** ppDstData, UINT32* pDstSize)
 {
-	H264_CONTEXT_MF* sys = (H264_CONTEXT_MF*)h264->pSystemData;
+	//H264_CONTEXT_MF* sys = (H264_CONTEXT_MF*)h264->pSystemData;
 	return 1;
 }
 

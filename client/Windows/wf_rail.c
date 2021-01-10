@@ -411,7 +411,6 @@ static BOOL wf_rail_window_common(rdpContext* context, const WINDOW_ORDER_INFO* 
 {
 	wfRailWindow* railWindow = NULL;
 	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	UINT32 fieldFlags = orderInfo->fieldFlags;
 	PrintRailWindowState(orderInfo, windowState);
 
@@ -648,7 +647,6 @@ static BOOL wf_rail_window_delete(rdpContext* context, const WINDOW_ORDER_INFO* 
 {
 	wfRailWindow* railWindow = NULL;
 	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailWindowDelete");
 	railWindow = (wfRailWindow*)HashTable_GetItemValue(wfc->railWindows,
 	                                                   (void*)(UINT_PTR)orderInfo->windowId);
@@ -676,7 +674,6 @@ static BOOL wf_rail_window_icon(rdpContext* context, const WINDOW_ORDER_INFO* or
 	wfRailWindow* railWindow;
 	BITMAPINFOHEADER* bitmapInfoHeader;
 	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailWindowIcon");
 	PrintRailIconInfo(orderInfo, windowIcon->iconInfo);
 	railWindow = (wfRailWindow*)HashTable_GetItemValue(wfc->railWindows,
@@ -772,8 +769,6 @@ static void wf_rail_notify_icon_common(rdpContext* context, const WINDOW_ORDER_I
 static BOOL wf_rail_notify_icon_create(rdpContext* context, const WINDOW_ORDER_INFO* orderInfo,
                                        const NOTIFY_ICON_STATE_ORDER* notifyIconState)
 {
-	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailNotifyIconCreate");
 	wf_rail_notify_icon_common(context, orderInfo, notifyIconState);
 	return TRUE;
@@ -782,8 +777,6 @@ static BOOL wf_rail_notify_icon_create(rdpContext* context, const WINDOW_ORDER_I
 static BOOL wf_rail_notify_icon_update(rdpContext* context, const WINDOW_ORDER_INFO* orderInfo,
                                        const NOTIFY_ICON_STATE_ORDER* notifyIconState)
 {
-	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailNotifyIconUpdate");
 	wf_rail_notify_icon_common(context, orderInfo, notifyIconState);
 	return TRUE;
@@ -791,8 +784,6 @@ static BOOL wf_rail_notify_icon_update(rdpContext* context, const WINDOW_ORDER_I
 
 static BOOL wf_rail_notify_icon_delete(rdpContext* context, const WINDOW_ORDER_INFO* orderInfo)
 {
-	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailNotifyIconDelete");
 	return TRUE;
 }
@@ -800,16 +791,12 @@ static BOOL wf_rail_notify_icon_delete(rdpContext* context, const WINDOW_ORDER_I
 static BOOL wf_rail_monitored_desktop(rdpContext* context, const WINDOW_ORDER_INFO* orderInfo,
                                       const MONITORED_DESKTOP_ORDER* monitoredDesktop)
 {
-	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailMonitorDesktop");
 	return TRUE;
 }
 
 static BOOL wf_rail_non_monitored_desktop(rdpContext* context, const WINDOW_ORDER_INFO* orderInfo)
 {
-	wfContext* wfc = (wfContext*)context;
-	RailClientContext* rail = wfc->rail;
 	WLog_DBG(TAG, "RailNonMonitorDesktop");
 	return TRUE;
 }

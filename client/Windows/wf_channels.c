@@ -62,7 +62,6 @@ void wf_OnChannelConnectedEventHandler(void* context, ChannelConnectedEventArgs*
 void wf_OnChannelDisconnectedEventHandler(void* context, ChannelDisconnectedEventArgs* e)
 {
 	wfContext* wfc = (wfContext*)context;
-	rdpSettings* settings = wfc->context.settings;
 
 	if (strcmp(e->name, RDPEI_DVC_CHANNEL_NAME) == 0)
 	{
