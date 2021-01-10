@@ -1168,7 +1168,7 @@ HANDLE CreateFileA(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode,
 DWORD WINAPI GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh)
 {
 	BOOL status;
-	LARGE_INTEGER fileSize = { 0, 0 };
+	LARGE_INTEGER fileSize = {};
 
 	if (!lpFileSizeHigh)
 		return INVALID_FILE_SIZE;
@@ -1187,8 +1187,8 @@ DWORD SetFilePointer(HANDLE hFile, LONG lDistanceToMove, PLONG lpDistanceToMoveH
                      DWORD dwMoveMethod)
 {
 	BOOL status;
-	LARGE_INTEGER liDistanceToMove = { 0, 0 };
-	LARGE_INTEGER liNewFilePointer = { 0, 0 };
+	LARGE_INTEGER liDistanceToMove = {};
+	LARGE_INTEGER liNewFilePointer = {};
 
 	liDistanceToMove.LowPart = lDistanceToMove;
 
@@ -1253,9 +1253,9 @@ BOOL GetDiskFreeSpaceA(LPCSTR lpRootPathName, LPDWORD lpSectorsPerCluster, LPDWO
                        LPDWORD lpNumberOfFreeClusters, LPDWORD lpTotalNumberOfClusters)
 {
 	BOOL status;
-	ULARGE_INTEGER FreeBytesAvailableToCaller = { 0, 0 };
-	ULARGE_INTEGER TotalNumberOfBytes = { 0, 0 };
-	ULARGE_INTEGER TotalNumberOfFreeBytes = { 0, 0 };
+	ULARGE_INTEGER FreeBytesAvailableToCaller = {};
+	ULARGE_INTEGER TotalNumberOfBytes = {};
+	ULARGE_INTEGER TotalNumberOfFreeBytes = {};
 
 	status = GetDiskFreeSpaceExA(lpRootPathName, &FreeBytesAvailableToCaller, &TotalNumberOfBytes,
 	                             &TotalNumberOfFreeBytes);
@@ -1276,9 +1276,9 @@ BOOL GetDiskFreeSpaceW(LPCWSTR lpRootPathName, LPDWORD lpSectorsPerCluster,
                        LPDWORD lpTotalNumberOfClusters)
 {
 	BOOL status;
-	ULARGE_INTEGER FreeBytesAvailableToCaller = { 0, 0 };
-	ULARGE_INTEGER TotalNumberOfBytes = { 0, 0 };
-	ULARGE_INTEGER TotalNumberOfFreeBytes = { 0, 0 };
+	ULARGE_INTEGER FreeBytesAvailableToCaller = {};
+	ULARGE_INTEGER TotalNumberOfBytes = {};
+	ULARGE_INTEGER TotalNumberOfFreeBytes = {};
 
 	status = GetDiskFreeSpaceExW(lpRootPathName, &FreeBytesAvailableToCaller, &TotalNumberOfBytes,
 	                             &TotalNumberOfFreeBytes);
