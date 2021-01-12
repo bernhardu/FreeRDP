@@ -49,6 +49,11 @@
 
 #define TAG FREERDP_TAG("core.gateway.rpc")
 
+#if defined(__MINGW64_VERSION_MAJOR)
+#define RPC_S_PROXY_ACCESS_DENIED 0x000006C1
+#define RPC_S_COOKIE_AUTH_FAILED 0x00000729
+#endif
+
 static const char* PTYPE_STRINGS[] = { "PTYPE_REQUEST",       "PTYPE_PING",
 	                                   "PTYPE_RESPONSE",      "PTYPE_FAULT",
 	                                   "PTYPE_WORKING",       "PTYPE_NOCALL",
