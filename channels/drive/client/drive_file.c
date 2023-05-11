@@ -91,6 +91,15 @@ static BOOL drive_file_fix_path(WCHAR* path, size_t length)
 	return TRUE;
 }
 
+static const WCHAR* next_dir_separator(const WCHAR* path, size_t PathWCharLength)
+{
+    for (size_t i = 1; i < PathWCharLength; i++) {
+        if (path[i] == '\\' || path[i] == '/')
+            return path + i;
+    }
+    return NULL;
+}
+
 static WCHAR* drive_file_combine_fullpath(const WCHAR* base_path, const WCHAR* path,
                                           size_t PathWCharLength)
 {
@@ -109,8 +118,36 @@ static WCHAR* drive_file_combine_fullpath(const WCHAR* base_path, const WCHAR* p
 		goto fail;
 
 	CopyMemory(fullpath, base_path, base_path_length * sizeof(WCHAR));
-	if (path)
-		CopyMemory(&fullpath[base_path_length], path, PathWCharLength * sizeof(WCHAR));
+	if (path) {
+		const WCHAR* cur_pos = path;
+		const WCHAR* cur_sep;
+		HANDLE hfind;
+		size_t append_path_length = 0;
+		WIN32_FIND_DATAW findFileData;
+		while (cur_pos < path + PathWCharLength) {
+			if (cur_pos[0] == L'\\' || cur_pos[0] == L'/') {
+				fullpath[base_path_length + append_path_length] = L'/';
+				cur_pos++;
+				append_path_length++;
+			} else {
+				cur_sep = next_dir_separator(cur_pos, PathWCharLength - (cur_pos - path));
+				if (!cur_sep)
+					break;
+				CopyMemory(&fullpath[base_path_length + append_path_length], cur_pos, (cur_sep - cur_pos) * sizeof(WCHAR));
+				fullpath[base_path_length + append_path_length + (cur_sep - cur_pos)] = L'\0';
+				hfind = FindFirstFileW(fullpath, &findFileData);
+				if (hfind != INVALID_HANDLE_VALUE) {
+					CopyMemory(&fullpath[base_path_length + append_path_length], findFileData.cFileName, _wcslen(findFileData.cFileName) * sizeof(WCHAR));
+					append_path_length += _wcslen(findFileData.cFileName);
+					FindClose(hfind);
+				} else {
+					append_path_length += cur_sep - cur_pos;
+				}
+				cur_pos = cur_sep;
+			}
+		}
+		CopyMemory(&fullpath[base_path_length + append_path_length], cur_pos, (PathWCharLength - (cur_pos - path)) * sizeof(WCHAR));
+	}
 
 	if (!drive_file_fix_path(fullpath, length))
 		goto fail;
